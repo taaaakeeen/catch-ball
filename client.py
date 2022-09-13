@@ -1,11 +1,23 @@
 import socket
 import time
-import datetime
+import pickle
+from box import giftBox
+from datetime import datetime
+
+def get_now():
+        now = datetime.now()
+        now = now.strftime('%Y-%m-%d %H:%M:%S')
+        return now
 
 def imageFileToBinary(file):
     with open(file, 'rb') as f:
       b = f.read()
     return b
+
+def textFileToStr(file):
+    with open(file, "r") as f:
+      s = f.read()
+    return s
 
 IP = '127.0.0.1'
 PORT = 8765
@@ -18,38 +30,18 @@ tcpSocket.connect(destination)
 
 while True:
 
-    s = "2"
-    b = s.encode("UTF-8")
-
-    b = imageFileToBinary("datas/data.jpg")
+    timestamp = get_now()
+    image = imageFileToBinary("data.jpg")
+    label = textFileToStr("data.txt")
 
     # 送信
-    send_data = b
-    tcpSocket.send(send_data)
+    obj = [timestamp,image,label]
+    b = pickle.dumps(obj)
+
+    tcpSocket.send(b)
 
     # 受信
-    recv_data = tcpSocket.recv(4096).decode()
-    print(recv_data)
+    recv_data = tcpSocket.recv(4096)
+    print(recv_data.decode())
 
     time.sleep(3)
-
-
-# line = ''
-# while line != 'bye':
-
-#     # 標準入力からデータを取得
-#     print('偶数の数値を入力して下さい')
-#     line = input('>>>')
-    
-#     # サーバに送信
-#     data = line.encode("UTF-8")
-#     socket1.send(data)
-    
-#     # サーバから受信
-#     data1 = socket1.recv(4096).decode()
-    
-#     # サーバから受信したデータを出力
-#     print('サーバーからの回答: ' + str(data1))
-
-# socket1.close()
-# print('クライアント側終了です')

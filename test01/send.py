@@ -12,3 +12,5 @@ sock.send(b"Hello, TCP")
 rcv_data = sock.recv(1024)
 print("receive data : {}".format(rcv_data))
 sock.close()
+
+
