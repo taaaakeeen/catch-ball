@@ -9,5 +9,7 @@ b = pickle.dumps(obj)
 
 obj = pickle.loads(b)
 
-print(obj.timestamp)
-print(giftBox.binaryImageCheck(obj.image))
+# print(obj.timestamp)
+# print(giftBox.binaryImageCheck(obj.image))
+
+
