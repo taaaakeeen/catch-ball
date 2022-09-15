@@ -1,12 +1,10 @@
 import socket
 import time
 import pickle
-from box import giftBox
 from datetime import datetime
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-from PIL import Image
 
 def binaryImageCheck(b):
     arr = np.frombuffer(b, dtype=np.uint8)
@@ -50,10 +48,22 @@ while True:
 
   # 送信
   tcpSocket.send(b)
-  print(len(b))
+  print("------------------------------")
+  print(len(b),"byte","サーバに送信")
+
+  obj = pickle.loads(b)
+
+  timestamp = obj[0]
+  print(timestamp)
+
+  image = obj[1]
+  # binaryImageCheck(image)
+
+  label = obj[2]
+  # print(label)
 
   # 返信
-  res = tcpSocket.recv(4096)
-  print(res.decode())
+  res_msg = tcpSocket.recv(4096)
+  print("受信完了メッセージをサーバから受信=>",res_msg.decode())
 
   time.sleep(3)

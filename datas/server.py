@@ -1,6 +1,6 @@
 import socket
 import pickle
-from box import giftBox
+from old.sample01.box import giftBox
 
 # 受信部
 IP = '127.0.0.1'

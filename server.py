@@ -45,17 +45,33 @@ while True:
     b = connection.recv(4096)
     print(c,len(b))
 
+    # 合体
     data += b
 
     if len(b) < 4096:
-        print(len(data))
+
+        print("------------------------------")
+        print(len(data),"byte","クライアントから受信")
+
+        obj = pickle.loads(data)
+
+        timestamp = obj[0]
+        print(timestamp)
+
+        image = obj[1]
+        print("画像を確認してください")
+        binaryImageCheck(image)
+        
+
+        label = obj[2]
+        print(label)
+
+        # リセット
         data = b""
         c = 0
 
-
-        # obj = pickle.loads(b)
-        # print(obj[0])
-        # print(obj[2])
-
         # 返信
-        connection.send(str(c).encode("UTF-8"))
+        res_msg = "OK"
+        print("受信完了メッセージをクライアントに送信=>",res_msg)
+        connection.send(res_msg.encode("UTF-8"))
+        print("------------------------------")
