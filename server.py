@@ -43,7 +43,7 @@ while True:
 
     # 受信
     b = connection.recv(4096)
-    print(c,len(b))
+    print(c,"回目",len(b),"byte")
 
     # 合体
     data += b
@@ -53,18 +53,17 @@ while True:
         print("------------------------------")
         print(len(data),"byte","クライアントから受信")
 
-        obj = pickle.loads(data)
+        # obj = pickle.loads(data)
 
-        timestamp = obj[0]
-        print(timestamp)
+        # timestamp = obj[0]
+        # print(timestamp)
 
-        image = obj[1]
-        print("画像を確認してください")
-        binaryImageCheck(image)
+        # image = obj[1]
+        # print("画像を確認してください")
+        # binaryImageCheck(image)
         
-
-        label = obj[2]
-        print(label)
+        # label = obj[2]
+        # print(label)
 
         # リセット
         data = b""
